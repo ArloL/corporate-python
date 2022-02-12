@@ -23,16 +23,7 @@ RUN pip install \
   --upgrade \
   pip
 
-RUN pip install \
-  --no-cache-dir \
-  pipenv
-
-COPY Pipfile Pipfile.lock ./
-
-RUN pipenv lock \
-    --keep-outdated \
-    --requirements \
-  >> requirements.txt
+COPY requirements.txt ./
 
 RUN pip install \
   --no-cache-dir \
