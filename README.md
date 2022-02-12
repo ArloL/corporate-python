@@ -4,4 +4,4 @@ A container for executing ansible.
 
 # Quickstart
 
-`docker build`
+`docker build .`
