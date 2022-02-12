@@ -55,7 +55,7 @@ jobs:
           --rm \
           --interactive \
           --env HOME="${PWD}" \
-          --user 1001240000:0 \
+          --user "$(id -u):0" \
           --volume "${PWD}:${PWD}" \
           --workdir "${PWD}" \
           arlol/ansible:latest
