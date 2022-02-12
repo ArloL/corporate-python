@@ -52,3 +52,4 @@ jobs:
           --volume "${PWD}:${PWD}" \
           --workdir "${PWD}" \
           arlol/ansible:latest
+        git diff --exit-code
