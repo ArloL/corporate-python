@@ -41,4 +41,14 @@ jobs:
       uses: actions/checkout@v2.4.0
     - name: Build
       run: |
-        ./run-ansible-docker.sh
+        docker build \
+          --tag arlol/ansible:latest \
+          .
+        docker run \
+          --rm \
+          --interactive \
+          --env HOME="${PWD}" \
+          --user 1001240000:0 \
+          --volume "${PWD}:${PWD}" \
+          --workdir "${PWD}" \
+          arlol/ansible:latest
