@@ -6,6 +6,10 @@ set -o xtrace
 
 cd "$(dirname "$0")" || exit 1
 
+pipenv lock \
+    --keep-outdated \
+    --requirements \
+  >> requirements.txt
 docker build \
   --tag arlol/ansible:latest \
   .

@@ -41,6 +41,13 @@ jobs:
       uses: actions/checkout@v2.4.0
     - name: Build
       run: |
+        pip install \
+          --no-cache-dir \
+          pipenv
+        pipenv lock \
+            --keep-outdated \
+            --requirements \
+          >> requirements.txt
         docker build \
           --tag arlol/ansible:latest \
           .
