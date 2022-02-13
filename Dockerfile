@@ -1,4 +1,5 @@
-FROM docker.io/python:3.10.2-buster
+ARG PYTHON_BASE_VERSION
+FROM docker.io/python:${PYTHON_BASE_VERSION}
 
 RUN apt-get --yes update \
   && apt-get --yes upgrade \

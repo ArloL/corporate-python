@@ -1,6 +1,6 @@
-# ansible-container
+# corporate-python
 
-A container for executing ansible.
+A container for executing python in corporate environments.
 
 # Quickstart
 

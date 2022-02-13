@@ -7,7 +7,8 @@ set -o xtrace
 cd "$(dirname "$0")" || exit 1
 
 docker build \
-  --tag arlol/ansible:latest \
+  --build-arg PYTHON_BASE_VERSION \
+  --tag "arlol/corporate-python:${PYTHON_BASE_VERSION}" \
   .
 docker run \
   --rm \
@@ -18,4 +19,4 @@ docker run \
   --entrypoint "${PWD}/nss-entrypoint.sh" \
   --volume "${PWD}:${PWD}" \
   --workdir "${PWD}" \
-  arlol/ansible:latest
+  "arlol/corporate-python:${PYTHON_BASE_VERSION}"
