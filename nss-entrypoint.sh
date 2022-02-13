@@ -4,4 +4,4 @@ set -o errexit
 set -o nounset
 set -o xtrace
 
-/home/ansible/nss-wrapper.sh sh ./entrypoint.sh
+./nss-wrapper.sh ./entrypoint.sh

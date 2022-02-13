@@ -8,4 +8,3 @@ ls -lsa
 whoami
 ssh -V
 nc -h
-ansible-playbook --version
