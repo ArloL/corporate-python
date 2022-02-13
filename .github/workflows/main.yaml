@@ -42,7 +42,7 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: '3.10'
-    - name: Build
+    - name: Build requirements.txt
       run: |
         pip install \
           --no-cache-dir \
@@ -51,14 +51,25 @@ jobs:
             --keep-outdated \
             --requirements \
           > requirements.txt
-        docker build \
-          --tag arlol/ansible:latest \
-          .
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1.12.0
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1.6.0
+    - name: Build and push
+      uses: docker/build-push-action@v2.9.0
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ansible:latest
+    - name: Build requirements.txt
+      run: |
         docker run \
           --rm \
-          --interactive \
           --env HOME="${PWD}" \
-          --user "$(id -u):0" \
+          --user "$(id -u):$(id -g)" \
           --volume "${PWD}:${PWD}" \
           --workdir "${PWD}" \
           arlol/ansible:latest
