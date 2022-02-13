@@ -13,7 +13,7 @@ docker run \
   --rm \
   --interactive \
   --tty \
-  --env HOME="${PWD}" \
+  --env HOME="/home/default" \
   --user 1001240000:1001240000 \
   --entrypoint "${PWD}/nss-entrypoint.sh" \
   --volume "${PWD}:${PWD}" \

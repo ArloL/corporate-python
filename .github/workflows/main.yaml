@@ -60,8 +60,9 @@ jobs:
       run: |
         docker run \
           --rm \
-          --env HOME="${PWD}" \
-          --user "$(id -u):$(id -g)" \
+          --env HOME="/home/default" \
+          --user 1001240000:1001240000 \
+          --entrypoint "${PWD}/nss-entrypoint.sh" \
           --volume "${PWD}:${PWD}" \
           --workdir "${PWD}" \
           ${{ secrets.DOCKER_HUB_USERNAME }}/ansible:latest
