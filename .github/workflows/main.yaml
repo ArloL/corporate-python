@@ -63,12 +63,12 @@ jobs:
       uses: docker/build-push-action@v2.9.0
       with:
         context: .
-        push: true
+        load: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ansible:latest
         builder: ${{ steps.buildx.outputs.name }}
         cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/ansible:buildcache
         cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/ansible:buildcache,mode=max
-    - name: Build requirements.txt
+    - name: Test image
       run: |
         docker run \
           --rm \
@@ -76,5 +76,16 @@ jobs:
           --user "$(id -u):$(id -g)" \
           --volume "${PWD}:${PWD}" \
           --workdir "${PWD}" \
-          arlol/ansible:latest
+          ${{ secrets.DOCKER_HUB_USERNAME }}/ansible:latest
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ansible:latest
+        builder: ${{ steps.buildx.outputs.name }}
+        cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/ansible:buildcache
+        cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/ansible:buildcache,mode=max
+    - name: Ensure clean build
+      run: |
         git diff --exit-code
