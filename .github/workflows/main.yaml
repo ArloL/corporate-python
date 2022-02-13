@@ -54,6 +54,8 @@ jobs:
       with:
         context: .
         load: true
+        build-args: |
+          PYTHON_BASE_VERSION=${{ env.PYTHON_BASE_VERSION }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/corporate-python:${{ env.PYTHON_BASE_VERSION }}
         builder: ${{ steps.buildx.outputs.name }}
         cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/corporate-python:buildcache
@@ -73,6 +75,8 @@ jobs:
       with:
         context: .
         push: true
+        build-args: |
+          PYTHON_BASE_VERSION=${{ env.PYTHON_BASE_VERSION }}
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/corporate-python:${{ env.PYTHON_BASE_VERSION }}
         builder: ${{ steps.buildx.outputs.name }}
         cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/corporate-python:buildcache
