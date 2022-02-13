@@ -57,6 +57,7 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     - name: Set up Docker Buildx
+      id: buildx
       uses: docker/setup-buildx-action@v1.6.0
     - name: Build and push
       uses: docker/build-push-action@v2.9.0
@@ -64,6 +65,9 @@ jobs:
         context: .
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ansible:latest
+        builder: ${{ steps.buildx.outputs.name }}
+        cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/ansible:buildcache
+        cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/ansible:buildcache,mode=max
     - name: Build requirements.txt
       run: |
         docker run \
