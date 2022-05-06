@@ -48,7 +48,7 @@ jobs:
     - name: Load .env file
       uses: xom9ikk/dotenv@v1.0.2
     - name: Build container
-      uses: docker/build-push-action@v2.10.0
+      uses: docker/build-push-action@v3.0.0
       with:
         context: .
         load: true
