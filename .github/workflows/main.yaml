@@ -3,7 +3,7 @@ name: Main
 on:
   push:
     branches-ignore:
-      - "dependabot/**"
+    - "dependabot/**"
   schedule:
   - cron: 59 9 1 * *
 
@@ -38,6 +38,8 @@ jobs:
       env:
         MATRIX_CONTEXT: ${{ toJSON(matrix) }}
       run: echo "$MATRIX_CONTEXT"
+    - name: Dump environment variables
+      run: set
   main:
     name: Main
     runs-on: ubuntu-latest
