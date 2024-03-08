@@ -57,7 +57,7 @@ jobs:
     - name: Load .env file
       uses: xom9ikk/dotenv@v2
     - name: Build container
-      uses: docker/build-push-action@v5.1.0
+      uses: docker/build-push-action@v5.2.0
       with:
         context: .
         load: true
@@ -78,7 +78,7 @@ jobs:
           --workdir "${PWD}" \
           ${{ env.DOCKER_REPOSITORY }}:${{ env.PYTHON_BASE_VERSION }}
     - name: Push container
-      uses: docker/build-push-action@v5.1.0
+      uses: docker/build-push-action@v5.2.0
       with:
         context: .
         push: true
