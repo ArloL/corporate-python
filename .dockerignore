@@ -1,6 +1,6 @@
-# Created by chorito https://github.com/ArloL/chorito
+### Docker ###
 
 Dockerfile
 .dockerignore
 
-# End of chorito. Add your ignores after this line and they will be preserved.
+# Add custom ignores after this line to be preserved during automated updates
