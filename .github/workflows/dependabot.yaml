@@ -53,7 +53,7 @@ jobs:
     - name: Load .env file
       uses: xom9ikk/dotenv@v2
     - name: Build container
-      uses: docker/build-push-action@v6.15.0 # zizmor: ignore[cache-poisoning]
+      uses: docker/build-push-action@v6.16.0 # zizmor: ignore[cache-poisoning]
       with:
         context: .
         load: true
