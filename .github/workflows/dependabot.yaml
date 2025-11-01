@@ -55,13 +55,13 @@ jobs:
     - name: Build container
       uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
       with:
-        context: .
-        load: true
         build-args: |
           PYTHON_BASE_VERSION=${{ env.PYTHON_BASE_VERSION }}
-        tags: ${{ env.DOCKER_REPOSITORY }}:${{ env.PYTHON_BASE_VERSION }}
         builder: ${{ steps.buildx.outputs.name }}
         cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:buildcache
+        context: .
+        load: true
+        tags: ${{ env.DOCKER_REPOSITORY }}:${{ env.PYTHON_BASE_VERSION }}
     - name: Test container
       run: |
         docker run \

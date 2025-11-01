@@ -52,8 +52,8 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
       with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
@@ -64,14 +64,14 @@ jobs:
     - name: Build container
       uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
       with:
-        context: .
-        load: true
         build-args: |
           PYTHON_BASE_VERSION=${{ env.PYTHON_BASE_VERSION }}
-        tags: ${{ env.DOCKER_REPOSITORY }}:${{ env.PYTHON_BASE_VERSION }}
         builder: ${{ steps.buildx.outputs.name }}
         cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:buildcache
         cache-to: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:buildcache,mode=max
+        context: .
+        load: true
+        tags: ${{ env.DOCKER_REPOSITORY }}:${{ env.PYTHON_BASE_VERSION }}
     - name: Test container
       run: |
         docker run \
@@ -85,14 +85,14 @@ jobs:
     - name: Push container
       uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
       with:
-        context: .
-        push: true
         build-args: |
           PYTHON_BASE_VERSION=${{ env.PYTHON_BASE_VERSION }}
-        tags: ${{ env.DOCKER_REPOSITORY }}:${{ env.PYTHON_BASE_VERSION }}
         builder: ${{ steps.buildx.outputs.name }}
         cache-from: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:buildcache
         cache-to: type=registry,ref=${{ env.DOCKER_REPOSITORY }}:buildcache,mode=max
+        context: .
+        push: true
+        tags: ${{ env.DOCKER_REPOSITORY }}:${{ env.PYTHON_BASE_VERSION }}
     - name: Ensure clean build
       run: |
         git diff --exit-code
