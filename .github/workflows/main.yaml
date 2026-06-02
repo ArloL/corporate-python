@@ -62,7 +62,7 @@ jobs:
     - name: Load .env file
       uses: xom9ikk/dotenv@eff1dce037c4c0143cc4180a810511024c2560c0 # v2
     - name: Build container
-      uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
+      uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
       with:
         build-args: |
           PYTHON_BASE_VERSION=${{ env.PYTHON_BASE_VERSION }}
@@ -83,7 +83,7 @@ jobs:
           --workdir "${PWD}" \
           ${{ env.DOCKER_REPOSITORY }}:${{ env.PYTHON_BASE_VERSION }}
     - name: Push container
-      uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
+      uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
       with:
         build-args: |
           PYTHON_BASE_VERSION=${{ env.PYTHON_BASE_VERSION }}
